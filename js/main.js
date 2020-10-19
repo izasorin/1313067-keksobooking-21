@@ -31,7 +31,6 @@ const ROOM_PHOTOS = [
 ];
 
 const MIN_PRICE = 0;
-
 const MAX_PRICE = 1000000;
 
 const map = document.querySelector(`.map`);
