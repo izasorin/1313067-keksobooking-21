@@ -33,9 +33,22 @@ const ROOM_PHOTOS = [
 const MIN_PRICE = 0;
 const MAX_PRICE = 1000000;
 
+const PIN_SIZE = {
+  WIDTH: 62,
+  HEIGHT: 84
+};
 const map = document.querySelector(`.map`);
 const pins = document.querySelector(`.map__pins`);
 const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
+
+const mainForm = document.querySelector(`.ad-form`);
+const formElements = document.querySelectorAll(`.ad-form__element`);
+const mapFilters = document.querySelector(`.map__filters`);
+const mapPin = document.querySelector(`.map__pin--main`);
+const addressInput = mainForm.querySelector(`input[name='address']`);
+
+const guestsQuantity = mainForm.querySelector(`[name='capacity']`);
+const roomsQuantity = mainForm.querySelector(`[name='rooms']`);
 
 const getRandom = (min, max) => Math.floor(min + Math.random() * (max - min));
 const getRandomFrom = (arr) => arr[getRandom(0, arr.length - 1)];
@@ -90,6 +103,72 @@ const renderPins = (offers) => {
 };
 
 const offers = generateOffers(OFFERS_QUANTITY);
-pins.appendChild(renderPins(offers));
 
-map.classList.remove(`map--faded`);
+const toggleElements = (elements, enabled) => {
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].disabled = !enabled;
+  }
+};
+
+const getAddressCoords = () => {
+  const coordsX = mapPin.offsetLeft + PIN_SIZE.WIDTH / 2;
+  const coordsY = mapPin.offsetTop + PIN_SIZE.HEIGHT;
+  return `${Math.floor(coordsX)}, ${Math.floor(coordsY)}`;
+};
+
+const validateCapacity = () => {
+  const guests = guestsQuantity.value;
+  const rooms = roomsQuantity.value;
+
+  if (guests > 0 && rooms === `100`) {
+    roomsQuantity.setCustomValidity(`Вариант не для гостей`);
+  } else if (guests === `0` && rooms !== `100`) {
+    roomsQuantity.setCustomValidity(`Для не гостей у нас только 100 комнат ^__^`);
+  } else if (guests > rooms) {
+    roomsQuantity.setCustomValidity(`Вам нужен вариант побольше`);
+  } else {
+    roomsQuantity.setCustomValidity(``);
+    // eslint-disable-next-line no-console
+    console.log('ok');
+  }
+};
+
+const eventListenerValidateCapacity = () => {
+  guestsQuantity.addEventListener(`change`, () => {
+    validateCapacity(guestsQuantity);
+  });
+  roomsQuantity.addEventListener(`change`, () => {
+    validateCapacity(roomsQuantity);
+  });
+};
+
+const getInactiveMap = () => {
+  map.classList.add(`map--faded`);
+  mainForm.classList.add(`ad-form--disabled`);
+  toggleElements(formElements, false);
+  toggleElements(mapFilters, false);
+  addressInput.value = getAddressCoords();
+};
+
+const getActiveMap = () => {
+  map.classList.remove(`map--faded`);
+  mainForm.classList.remove(`ad-form--disabled`);
+  toggleElements(formElements, true);
+  toggleElements(mapFilters, true);
+  pins.appendChild(renderPins(offers));
+  eventListenerValidateCapacity();
+};
+
+getInactiveMap();
+
+mapPin.addEventListener(`mousedown`, (evt) => {
+  if (evt.which === 1) {
+    getActiveMap();
+  }
+});
+
+mapPin.addEventListener(`keydown`, (evt) => {
+  if (evt.key === `Enter`) {
+    getActiveMap();
+  }
+});
