@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  const pins = document.querySelector(`.map__pins`);
+  // const pins = document.querySelector(`.map__pins`);
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
   const renderPin = (offer) => {
@@ -14,13 +14,5 @@
     return pinElement;
   };
 
-  const renderPins = (offers) => {
-    const fragment = document.createDocumentFragment();
-    offers.map(renderPin).forEach((offer1) => fragment.appendChild(offer1));
-    pins.appendChild(fragment);
-  };
-
-  window.renderPin = {
-    renderPins
-  };
+  window.renderPin = renderPin;
 })();
