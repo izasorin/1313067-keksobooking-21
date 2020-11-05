@@ -25,7 +25,7 @@
     }
   };
 
-  const getInactiveMap = () => {
+  const disableMap = () => {
     map.classList.add(`map--faded`);
     mainForm.classList.add(`ad-form--disabled`);
     toggleElements(formElements, false);
@@ -33,17 +33,18 @@
     addressInput.value = getAddressCoords();
   };
 
-  const getActiveMap = () => {
+  const enableMap = () => {
     map.classList.remove(`map--faded`);
     mainForm.classList.remove(`ad-form--disabled`);
     toggleElements(formElements, true);
     toggleElements(mapFilters, true);
-    window.renderPin.renderPins(window.generateOffer.offers);
+    // window.renderPins(window.generateOffer.generateOffers(window.generateOffer.OFFERS_QUANTITY));
+    window.load.download(window.Handler.successHandler, window.Handler.errorHandler);
     window.validateForm.eventListenerValidateCapacity();
   };
 
   window.pageToggle = {
-    getInactiveMap,
-    getActiveMap
+    disableMap,
+    enableMap
   };
 })();

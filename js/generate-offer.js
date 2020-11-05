@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  const OFFERS_QUANTITY = 8;
+  // const OFFERS_QUANTITY = 8;
 
   const ROOMS_TYPE = [
     `palace`,
@@ -68,9 +68,9 @@
 
   const generateOffers = (amount) => new Array(amount).fill(``).map(generateOffer);
 
-  const offers = generateOffers(OFFERS_QUANTITY);
+  // const offers = generateOffers(OFFERS_QUANTITY);
 
   window.generateOffer = {
-    offers
+    generateOffers
   };
 })();

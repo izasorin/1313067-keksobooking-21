@@ -2,18 +2,18 @@
 
 const mapPin = document.querySelector(`.map__pin--main`);
 
-window.pageToggle.getInactiveMap();
+window.pageToggle.disableMap();
 
 window.validateForm.eventListenerValidateCapacity();
 
 mapPin.addEventListener(`mousedown`, (evt) => {
   if (evt.which === 1) {
-    window.pageToggle.getActiveMap();
+    window.pageToggle.enableMap();
   }
 });
 
 mapPin.addEventListener(`keydown`, (evt) => {
   if (evt.key === `Enter`) {
-    window.pageToggle.getActiveMap();
+    window.pageToggle.enableMap();
   }
 });
