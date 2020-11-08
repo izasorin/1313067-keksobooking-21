@@ -38,8 +38,7 @@
     mainForm.classList.remove(`ad-form--disabled`);
     toggleElements(formElements, true);
     toggleElements(mapFilters, true);
-    // window.renderPins(window.generateOffer.generateOffers(window.generateOffer.OFFERS_QUANTITY));
-    window.load.download(window.Handler.successHandler, window.Handler.errorHandler);
+    window.backend.load(window.handler.successHandler, window.handler.errorHandler);
     window.validateForm.eventListenerValidateCapacity();
   };
 

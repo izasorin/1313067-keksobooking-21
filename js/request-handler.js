@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  const MAX_AMOUNT_PINS = 5;
   const pins = document.querySelector(`.map__pins`);
 
   const errorHandler = function (errorMessage) {
@@ -17,11 +18,11 @@
 
   const successHandler = function (offers) {
     const fragment = document.createDocumentFragment();
-    offers.map(window.renderPin).forEach((offer1) => fragment.appendChild(offer1));
+    window.util.getPartOfArray(offers, MAX_AMOUNT_PINS).map(window.renderPin).forEach((offer) => fragment.appendChild(offer));
     pins.appendChild(fragment);
   };
 
-  window.Handler = {
+  window.handler = {
     errorHandler,
     successHandler
   };

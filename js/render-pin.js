@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  // const pins = document.querySelector(`.map__pins`);
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
   const renderPin = (offer) => {

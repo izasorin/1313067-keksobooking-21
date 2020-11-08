@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  const TIMEOUT_IN_MS = 10000;
+
   const URL = {
     load: `https://21.javascript.pages.academy/keksobooking/data`
   };
@@ -8,8 +10,6 @@
   const StatusCode = {
     OK: 200
   };
-
-  const TIMEOUT_IN_MS = 10000;
 
   const loadData = (onSuccess, onError, method, url) => {
     const xhr = new XMLHttpRequest();
@@ -34,9 +34,9 @@
     xhr.send();
   };
 
-  const download = (onSuccess, onError) => loadData(onSuccess, onError, `GET`, URL.load);
+  const load = (onSuccess, onError) => loadData(onSuccess, onError, `GET`, URL.load);
 
-  window.load = {
-    download
+  window.backend = {
+    load
   };
 })();
